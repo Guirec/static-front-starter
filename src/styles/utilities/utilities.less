@@ -1,0 +1,254 @@
+//
+// Utility classes
+// --------------------------------------------------------------------------
+
+
+// Mixins
+// --------------------------------------------------------------------------
+
+// Clear floats
+// See: http://www.cssmojo.com/latest_new_clearfix_so_far/
+.clearfix() {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// CSS image replacement
+.text-hide() {
+  font: ~"0/0" a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+// Reset text styles (except font-size or word-wrap)
+.reset-text() {
+  font-family: @font-family-base;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: @line-height-base;
+  text-align: left; // Fallback for where `start` is not supported
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+}
+
+// Only display content to screen readers
+// See: http://a11yproject.com/posts/how-to-hide-content
+.sr-only() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+// Use in conjunction with .sr-only to only display content when it's focused.
+// Useful for "Skip to main content" links
+// See: http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
+.sr-only-focusable() {
+  &:active,
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+  }
+}
+
+// WebKit-style focus
+.tab-focus() {
+  // Default
+  outline: thin dotted;
+  // WebKit
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+// Border radius
+.border-top-radius(@radius) {
+  border-top-right-radius: @radius;
+  border-top-left-radius: @radius;
+}
+
+.border-right-radius(@radius) {
+  border-bottom-right-radius: @radius;
+  border-top-right-radius: @radius;
+}
+
+.border-bottom-radius(@radius) {
+  border-bottom-right-radius: @radius;
+  border-bottom-left-radius: @radius;
+}
+
+.border-left-radius(@radius) {
+  border-bottom-left-radius: @radius;
+  border-top-left-radius: @radius;
+}
+
+// Placeholder vendor prefixes
+.placeholder(@color: @input-color-placeholder) {
+  &::placeholder {
+    color: @color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+}
+
+
+// Floats
+// --------------------------------------------------------------------------
+
+.clearfix {
+  .clearfix();
+}
+
+
+// Alignment
+// --------------------------------------------------------------------------
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+// Toggling content
+// --------------------------------------------------------------------------
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.text-hide {
+  .text-hide();
+}
+
+// Hide from screenreaders and browsers
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+
+// Makes an element visually hidden, but accessible
+// --------------------------------------------------------------------------
+
+.sr-only {
+  .sr-only();
+}
+
+
+// Animations
+// --------------------------------------------------------------------------
+
+.fade {
+  opacity: 0;
+  transition: opacity .15s linear;
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+.collapse {
+  display: none;
+
+  &.in      { display: block; }
+  tr&.in    { display: table-row; }
+  tbody&.in { display: table-row-group; }
+}
+
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition-property: height, visibility;
+  transition-duration: .35s;
+  transition-timing-function: ease;
+}
+
+
+// Embeds responsive
+// --------------------------------------------------------------------------
+
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+
+  .embed-responsive__item,
+  iframe,
+  embed,
+  object,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+}
+
+// 16:9 aspect ratio
+.embed-responsive--16by9 {
+  padding-bottom: 56.25%;
+}
+
+// 4:3 aspect ratio
+.embed-responsive--4by3 {
+  padding-bottom: 75%;
+}
+
+
+// Magento
+// --------------------------------------------------------------------------
+
+.no-display {
+  display: none !important;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.center {
+  margin: 0 auto;
+}

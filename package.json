@@ -1,0 +1,30 @@
+{
+  "name": "static-front-starter",
+  "version": "1.0.0",
+  "description": "A simple way to start your static integration with Pug as template engine, Less for styles and Gulp for automation",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp build",
+    "watch": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guirec/static-front-starter.git"
+  },
+  "author": "Guirec Lefort",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Guirec/static-front-starter/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.12",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-pug": "^3.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3"
+  }
+}
