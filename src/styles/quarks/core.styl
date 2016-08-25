@@ -6,13 +6,14 @@
 // Box model
 // --------------------------------------------------------------------------
 
-* {
+html {
   box-sizing: border-box;
 }
 
+*,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
 
@@ -34,14 +35,14 @@ html {
 
 body {
   position: relative;
-  font-family: @font-family-base;
-  font-size: @font-size-base - .1rem;
-  line-height: @line-height-base;
-  color: @text-color;
-  background-color: @body-bg;
+  font-family: $font-family-base;
+  font-size: $font-size-base - .1rem;
+  line-height: $line-height-base;
+  color: $text-color;
+  background-color: $body-bg;
 
-  @media (min-width: @screen-md-min) {
-    font-size: @font-size-base;
+  @media (min-width: $screen-md-min) {
+    font-size: $font-size-base;
   }
 }
 

@@ -1,0 +1,6 @@
+{
+  "brackets": "always",
+  "colons": "always",
+  "semicolons": "always",
+  "zeroUnits": "never"
+}

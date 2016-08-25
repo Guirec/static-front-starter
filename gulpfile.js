@@ -5,7 +5,7 @@
 // Load plugins
 const gulp         = require('gulp');
 const pug          = require('gulp-pug');
-const less         = require('gulp-less');
+const stylus       = require('gulp-stylus');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS     = require('gulp-clean-css');
 const uglify       = require('gulp-uglify');
@@ -38,8 +38,8 @@ gulp.task('templates', function() {
 
 // Styles
 gulp.task('styles', function() {
-  return gulp.src(paths.styles + '/*.less')
-    .pipe(less())
+  return gulp.src(paths.styles + '/*.styl')
+    .pipe(stylus())
     .on('error', swallowError)
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
@@ -100,7 +100,7 @@ gulp.task('default', ['build'], function() {
   });
 
   gulp.watch(paths.templates + '/**/*.pug', ['templates-watch']);
-  gulp.watch(paths.styles + '/**/*.less', ['styles']);
+  gulp.watch(paths.styles + '/**/*.styl', ['styles']);
   gulp.watch(paths.scripts + '/**/*.js', ['scripts']);
   gulp.watch(paths.images + '/**/*', ['images']);
   gulp.watch(paths.fonts + '/**/*', ['fonts']);

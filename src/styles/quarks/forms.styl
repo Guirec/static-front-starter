@@ -6,46 +6,54 @@
 // Variables
 // --------------------------------------------------------------------------
 
-@input-bg:                        #fff;
-@input-bg-disabled:               @color-gray-lighter;
-@input-color:                     @color-gray;
-@input-border:                    #ccc;
-@input-border-focus:              #66afe9;
-@input-color-placeholder:         #999;
-@input-height:                    32px;
+$input-bg ?=                        #fff;
+$input-bg-disabled ?=               $color-gray-lighter;
+$input-color ?=                     $color-gray;
+$input-border ?=                    #ccc;
+$input-border-focus ?=              #66afe9;
+$input-border-width ?=              1px;
+$input-color-placeholder ?=         #999;
+$input-height ?=                    32px;
 
-@form-group-margin-bottom:        15px;
+$form-group-margin-bottom ?=        15px;
 
-@legend-color:                    @color-gray-dark;
-@legend-border-color:             #e5e5e5;
+$legend-color ?=                    $color-gray-dark;
+$legend-border-color ?=             #e5e5e5;
 
-@input-group-addon-bg:            @color-gray-lighter;
-@input-group-addon-border-color:  @input-border;
+$input-group-addon-bg ?=            $color-gray-lighter;
+$input-group-addon-border-color ?=  $input-border;
 
-@cursor-disabled:                 not-allowed;
+$cursor-disabled ?=                 not-allowed;
 
 
 // Mixins
 // --------------------------------------------------------------------------
 
-.form-control-focus(@color: @input-border-focus) {
-  @color-rgba: rgba(red(@color), green(@color), blue(@color), .6);
+form-control-focus($color = $input-border-focus) {
+  $color-rgba: rgba(red($color), green($color), blue($color), .6);
 
   &:focus {
-    border-color: @color;
+    border-color: $color;
     outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @color-rgba;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color-rgba;
   }
 }
 
-.form-control-validation(@text-color: #555; @border-color: #ccc; @background-color: #f5f5f5) {
-  color: @text-color;
-  border-color: @border-color;
+form-control-validation($text-color = #555, $border-color = #ccc, $background-color = #f5f5f5) {
+  color: $text-color;
+  border-color: $border-color;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075); // Redeclare so transitions work
 
   &:focus {
-    border-color: darken(@border-color, 10%);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten(@border-color, 20%);
+    border-color: darken($border-color, 10%);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten($border-color, 20%);
+  }
+}
+
+placeholder($color = $input-color-placeholder) {
+  &::placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
   }
 }
 
@@ -67,11 +75,11 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 10px;
-  font-size: (@font-size-base * 1.5);
+  font-size: ($font-size-base * 1.5);
   line-height: inherit;
-  color: @legend-color;
+  color: $legend-color;
   border: 0;
-  border-bottom: 1px solid @legend-border-color;
+  border-bottom: 1px solid $legend-border-color;
 }
 
 label {
@@ -124,16 +132,16 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  .tab-focus();
+  tab-focus();
 }
 
 // Adjust output element
 output {
   display: block;
   padding-top: 7px;
-  font-size: @font-size-base;
-  line-height: @line-height-base;
-  color: @input-color;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $input-color;
 }
 
 
@@ -144,13 +152,13 @@ output {
 
 label,
 .label {
-  font-family: @font-family-serif;
-  font-size: (@font-size-base - .1rem);
+  font-family: $font-family-serif;
+  font-size: ($font-size-base - .1rem);
   font-style: italic;
 
   em {
     font-style: normal;
-    color: @color-primary;
+    color: $color-primary;
   }
 }
 
@@ -183,27 +191,25 @@ label,
 // input[type="color"]
 // --------------------------------------------------------------------------
 
-.form-control,
-.input-text,
-.select,
-select {
+.form-control {
   display: block;
   width: 100%;
-  height: @input-height; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
-  padding: @padding-base-vertical @padding-base-horizontal;
-  font-size: @font-size-base;
+  height: $input-height; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+  padding: $padding-base-vertical $padding-base-horizontal;
+  font-size: $font-size-base;
   line-height: 1;
-  color: @input-color;
-  background-color: @input-bg;
+  color: $input-color;
+  background-color: $input-bg;
   background-image: none; // Reset unusual Firefox-on-Android default style see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid @input-border;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 
   // Customize the `:focus` state to imitate native WebKit styles.
-  .form-control-focus();
+  form-control-focus();
 
   // Placeholder
-  .placeholder();
+  placeholder();
 
   // Disabled and read-only inputs
   //
@@ -211,16 +217,14 @@ select {
   // be disabled if the fieldset is disabled. Due to implementation
   // difficulty, we don't honor that edge case we style them as disabled
   // anyway.
-  &[disabled],
-  &[readonly],
-  fieldset[disabled] & {
-    background-color: @input-bg-disabled;
+  &:disabled,
+  &[readonly] {
+    background-color: $input-bg-disabled;
     opacity: 1; // iOS fix for unreadable disabled content
   }
 
-  &[disabled],
-  fieldset[disabled] & {
-    cursor: @cursor-disabled;
+  &:disabled {
+    cursor: $cursor-disabled;
   }
 
   // Reset height for `textarea`s
@@ -229,12 +233,7 @@ select {
   }
 
   &.validation-failed {
-    .form-control-validation(@state-error-text, @state-error-text, @state-error-bg);
-  }
-
-  &.inline {
-    display: inline;
-    width: auto;
+    form-control-validation($state-error-text, $state-error-text, $state-error-bg);
   }
 }
 
@@ -263,7 +262,7 @@ input[type="search"] {
   input[type="time"],
   input[type="datetime-local"],
   input[type="month"] {
-    line-height: @input-height;
+    line-height: $input-height;
   }
 }
 
@@ -275,7 +274,7 @@ input[type="search"] {
 // --------------------------------------------------------------------------
 
 .form-group {
-  margin-bottom: @form-group-margin-bottom;
+  margin-bottom: $form-group-margin-bottom;
 }
 
 
@@ -286,10 +285,10 @@ input[type="search"] {
   display: block;
   padding: 30px 0 0;
   font-size: 1.2rem;
-  color: lighten(@color-gray-light, 20%);
+  color: lighten($color-gray-light, 20%);
 
   em {
-    color: @color-primary;
+    color: $color-primary;
   }
 }
 
@@ -315,7 +314,7 @@ input[type="search"] {
   margin-bottom: 10px;
 
   label {
-    min-height: @line-height-computed; // Ensure the input doesn't jump when there is no text
+    min-height: $line-height-computed; // Ensure the input doesn't jump when there is no text
     padding-left: 20px;
     margin-bottom: 0;
     font-weight: normal;
@@ -364,11 +363,11 @@ input[type="checkbox"] {
   &[disabled],
   &.disabled,
   fieldset[disabled] & {
-    cursor: @cursor-disabled;
+    cursor: $cursor-disabled;
 
     & + span {
-      color: @color-gray-light;
-      cursor: @cursor-disabled;
+      color: $color-gray-light;
+      cursor: $cursor-disabled;
     }
   }
 }
@@ -378,7 +377,7 @@ input[type="checkbox"] {
 .checkbox-inline {
   &.disabled,
   fieldset[disabled] & {
-    cursor: @cursor-disabled;
+    cursor: $cursor-disabled;
   }
 }
 
@@ -388,7 +387,7 @@ input[type="checkbox"] {
   &.disabled,
   fieldset[disabled] & {
     label {
-      cursor: @cursor-disabled;
+      cursor: $cursor-disabled;
     }
   }
 }
@@ -403,16 +402,16 @@ input[type="checkbox"] {
   display: block; // account for any element using help-block
   margin-top: 5px;
   margin-bottom: 10px;
-  font-size: @font-size-small;
+  font-size: $font-size-small;
   font-style: italic;
-  color: lighten(@text-color, 25%); // lighten the text some for contrast
+  color: lighten($text-color, 25%); // lighten the text some for contrast
 
   a {
-    color: @color-gray-light;
+    color: $color-gray-light;
 
     &:hover,
     &:focus {
-      color: @text-color;
+      color: $text-color;
     }
   }
 }
@@ -429,7 +428,7 @@ input[type="checkbox"] {
 // --------------------------------------------------------------------------
 
 .form-inline {
-  @media (min-width: @screen-sm-min) {
+  @media (min-width: $screen-sm-min) {
     // Inline-block all the things for "inline"
     .form-group {
       display: inline-block;
@@ -533,14 +532,14 @@ input[type="checkbox"] {
 
 // Text input groups
 .input-group-addon {
-  padding: @padding-base-vertical @padding-base-horizontal;
-  font-size: @font-size-base;
+  padding: $padding-base-vertical $padding-base-horizontal;
+  font-size: $font-size-base;
   font-weight: normal;
   line-height: 1;
-  color: @input-color;
+  color: $input-color;
   text-align: center;
-  background-color: @input-group-addon-bg;
-  border: 1px solid @input-group-addon-border-color;
+  background-color: $input-group-addon-bg;
+  border: 1px solid $input-group-addon-border-color;
 
   // Nuke default margins from checkboxes and radios to vertically center within.
   input[type="radio"],
@@ -557,7 +556,7 @@ input[type="checkbox"] {
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
-  .border-right-radius(0);
+  border-right-radius(0);
 }
 
 .input-group-addon:first-child {
@@ -571,7 +570,7 @@ input[type="checkbox"] {
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
-  .border-left-radius(0);
+  border-left-radius(0);
 }
 
 .input-group-addon:last-child {
@@ -590,7 +589,7 @@ input[type="checkbox"] {
   // element above the siblings.
   > .btn {
     position: relative;
-    height: @input-height;
+    height: $input-height;
     padding-top: 4px;
     padding-bottom: 4px;
     font-size: 1.4rem;

@@ -1,0 +1,153 @@
+//
+// Tables
+// --------------------------------------------------------------------------
+
+
+// Variables
+// --------------------------------------------------------------------------
+
+$table-cell-padding ?=            8px;
+$table-condensed-cell-padding ?=  5px;
+
+$table-bg ?=                      transparent;
+$table-bg-accent ?=               #f9f9f9;
+$table-bg-hover ?=                #f5f5f5;
+$table-bg-active ?=               $table-bg-hover;
+$table-bg-thead ?=                $table-bg-hover;
+
+$table-border-color ?=            #ddd;
+
+
+// Normalize
+// --------------------------------------------------------------------------
+
+table {
+  background-color: $table-bg;
+  border-collapse: collapse;
+}
+
+caption {
+  padding-top: $table-cell-padding;
+  padding-bottom: $table-cell-padding;
+  text-align: left;
+  color: $color-gray-light;
+}
+
+th {
+  text-align: left;
+}
+
+
+// Base
+// --------------------------------------------------------------------------
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+
+  // Cells
+  th,
+  td {
+    padding: $table-cell-padding;
+    vertical-align: top;
+    border-top: 1px solid $table-border-color;
+  }
+
+  // Bottom align for column headings
+  thead th {
+    font-size: 1.4rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: bottom;
+    background-color: $table-bg-thead;
+    border-bottom: 2px solid $table-border-color;
+  }
+
+  // Account for multiple tbody instances
+  > tbody + tbody {
+    border-top: 2px solid $table-border-color;
+  }
+}
+
+
+// Condensed
+// --------------------------------------------------------------------------
+
+.table--condensed {
+  th,
+  td {
+    padding: $table-condensed-cell-padding;
+  }
+}
+
+
+// Bordered
+// --------------------------------------------------------------------------
+
+.table--bordered {
+  border: 1px solid $table-border-color;
+
+  th,
+  td {
+    border: 1px solid $table-border-color;
+  }
+
+  thead {
+    th,
+    td {
+      border-bottom-width: 2px;
+    }
+  }
+}
+
+
+// Striped
+// --------------------------------------------------------------------------
+
+.table--striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: $table-bg-accent;
+  }
+}
+
+
+// Hover effect
+// --------------------------------------------------------------------------
+
+.table--hover {
+  tbody tr:hover {
+    background-color: $table-bg-hover;
+  }
+}
+
+
+// Responsive tables
+//
+// Wrap your tables in `.table-responsive` and we'll make them mobile friendly
+// by enabling horizontal scrolling. Only applies <768px. Everything above that
+// will display normally.
+// --------------------------------------------------------------------------
+
+.table-responsive {
+  min-height: .01%; // Workaround for IE9 bug
+  overflow-x: auto;
+
+  @media screen and (max-width: $screen-xs-max) {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid $table-border-color;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    .table {
+      margin-bottom: 0;
+
+      th,
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
+}
