@@ -1,6 +1,11 @@
 {
   "brackets": "always",
+  "commentSpace": "always",
   "colons": "always",
+  "efficient": "always",
+  "extendPref": "@extends",
+  "leadingZero": "never",
+  "prefixVarsWithDollar": "always",
   "semicolons": "always",
   "zeroUnits": "never"
 }
