@@ -40,6 +40,21 @@
       }
     });
 
+
+    // Toggle navigation
+    if ($('#header-toggle-navigation').length) {
+      $('#header-toggle-navigation').click(function () {
+        if (!$('body').hasClass('has-navigation-open')) {
+          $(this).attr('aria-expanded', 'true');
+          $('body').addClass('has-navigation-open');
+        } else {
+          $(this).attr('aria-expanded', 'false');
+          $('body').removeClass('has-navigation-open');
+        }
+      });
+    }
+
+
     // Functions
     // ------------------------------------------------------------------
 

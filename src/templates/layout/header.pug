@@ -1,2 +1,14 @@
 header(role='banner').header
-  | Header
+  div.header-main
+    h1.header-logo
+      a(href="#") Project name
+    button#header-toggle-navigation.header-toggle-navigation(type="button", aria-haspopup="true", aria-expanded="false")
+      span Toogle navigation
+    nav#header-navigation.header-navigation(role="navigation")
+      ul.header-navigation__list
+        li.header-navigation__item
+          a(href="#") Home
+        li.header-navigation__item
+          a(href="#") About
+        li.header-navigation__item
+          a(href="#") Contact

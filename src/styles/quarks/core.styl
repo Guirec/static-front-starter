@@ -27,6 +27,8 @@ body {
 
 html {
   height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-size: 62.5%;
   // IE9-IE11 math fixing. See http://bit.ly/1g4X0bX
   font-size: calc(1em * .625);
@@ -40,6 +42,8 @@ body {
   line-height: $line-height-base;
   color: $text-color;
   background-color: $body-bg;
+  transition: transform .2s ease-in-out;
+  will-change: transform;
 
   @media (min-width: $screen-md-min) {
     font-size: $font-size-base;
